@@ -115,24 +115,24 @@ export default function AuthPage({ onAuthSuccess }: AuthPageProps) {
         text: "Geolocation is not supported by this browser."
       });
       setGettingLocation(false);
-      return;
-    }
-
-    try {
-      const position = await new Promise((resolve, reject) => {
-        navigator.geolocation.getCurrentPosition(resolve, reject, {
-          enableHighAccuracy: true,
-          timeout: 10000,
-          maximumAge: 60000
+      try {
+        const position = await new Promise<GeolocationPosition>((resolve, reject) => {
+          navigator.geolocation.getCurrentPosition(resolve, reject, {
+            enableHighAccuracy: true,
+            timeout: 10000,
+            maximumAge: 60000
+          });
         });
-      });
 
-      const { latitude, longitude } = position.coords;
-      setLocation({ latitude, longitude });
-      setLocationPermission("granted");
-      
-      // Reverse geocode to get area name (you can integrate with a geocoding service)
-      // For now, we'll use a mock area detection
+        const { latitude, longitude } = position.coords;
+        setLocation({ latitude, longitude });
+        setLocationPermission("granted");
+        // Reverse geocode to get area name (you can integrate with a geocoding service)
+        // For now, we'll use a mock area detection
+        const detectedArea = await detectAreaFromCoords(latitude, longitude);
+        setFormData(prev => ({ ...prev, area: detectedArea }));
+        setMessage({
+          type: "success",
       const detectedArea = await detectAreaFromCoords(latitude, longitude);
       setFormData(prev => ({ ...prev, area: detectedArea }));
       

@@ -58,26 +58,10 @@ export async function POST(request: NextRequest) {
     }
     
     // Generate JWT token
-    const token = generateToken({
-      userId: user.id,
-      email: user.email,
-      name: user.name
-    });
-    
-    return NextResponse.json({
-      message: 'Login successful',
-      user: {
-        id: user.id,
-        name: user.name,
-        email: user.email,
-        area: user.area,
-        latitude: user.latitude,
-        longitude: user.longitude,
-        isVerified: user.is_verified,
-        emailVerified: user.email_verified
-      },
-      token
-    });
+      // JWT logic removed for Google OAuth migration
+      return NextResponse.json({
+        error: 'Use Google OAuth for authentication.'
+      }, { status: 400 });
     
   } catch (error) {
     console.error('Login error:', error);

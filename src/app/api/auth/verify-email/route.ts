@@ -29,12 +29,6 @@ export async function POST(request: NextRequest) {
     
     const user = result.rows[0];
     
-    if (user.email_verification_token !== token) {
-      return NextResponse.json(
-        { error: 'Invalid verification token' },
-        { status: 400 }
-      );
-    }
     
     if (new Date() > new Date(user.email_verification_expires)) {
       return NextResponse.json(

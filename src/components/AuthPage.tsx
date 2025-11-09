@@ -133,13 +133,8 @@ export default function AuthPage({ onAuthSuccess }: AuthPageProps) {
         setFormData(prev => ({ ...prev, area: detectedArea }));
         setMessage({
           type: "success",
-      const detectedArea = await detectAreaFromCoords(latitude, longitude);
-      setFormData(prev => ({ ...prev, area: detectedArea }));
-      
-      setMessage({
-        type: "success",
-        text: `Location detected: ${detectedArea}`
-      });
+          text: `Location detected: ${detectedArea}`
+        });
     } catch (error) {
       setLocationPermission("denied");
       setMessage({

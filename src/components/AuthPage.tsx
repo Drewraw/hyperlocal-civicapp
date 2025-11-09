@@ -587,7 +587,7 @@ export default function AuthPage({ onAuthSuccess }: AuthPageProps) {
               </Button>
 
               <p className="text-xs text-gray-500 text-center">
-                By registering, you'll receive an email verification link to activate your account.
+                By registering, you&apos;ll receive an email verification link to activate your account.
               </p>
             </form>
           )}

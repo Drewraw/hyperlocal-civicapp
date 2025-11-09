@@ -1,7 +1,7 @@
 // POST /api/auth/login
 import { NextRequest, NextResponse } from 'next/server';
 import { query } from '@/lib/database';
-import { generateToken } from '@/lib/jwt';
+
 
 export async function POST(request: NextRequest) {
   try {

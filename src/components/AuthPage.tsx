@@ -631,7 +631,7 @@ export default function AuthPage({ onAuthSuccess }: AuthPageProps) {
 
               <div className="text-center pt-4 border-t">
                 <p className="text-sm text-gray-600 mb-2">
-                  Didn't receive the email?
+                  Didn&apos;t receive the email?
                 </p>
                 <Button 
                   variant="outline" 

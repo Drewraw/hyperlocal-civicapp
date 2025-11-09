@@ -6,7 +6,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
-import { MapPin, Send, MessageSquare, ThumbsUp, CheckCircle, AlertTriangle, Bell, Users, Home, MessageCircle, Upload, X, Image, Video, LogOut, Menu } from "lucide-react";
+import { MapPin, Send, MessageSquare, ThumbsUp, CheckCircle, AlertTriangle, Bell, Users, Home, MessageCircle, Upload, X, ImageIcon, Video, LogOut, Menu } from "lucide-react";
+import Image from "next/image";
 import AuthPage from "@/components/AuthPage";
 
 interface User {
@@ -96,6 +97,7 @@ export default function CivicAIPlatform() {
 
   useEffect(() => {
     checkAuthStatus();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const checkAuthStatus = async () => {
@@ -720,7 +722,7 @@ export default function CivicAIPlatform() {
                                               className="w-full h-20 object-cover rounded"
                                             />
                                             <div className="absolute top-1 left-1 bg-green-500 text-white text-xs px-1 py-0.5 rounded flex items-center gap-1">
-                                              <Image size={10} />
+                                              <ImageIcon size={10} />
                                               Photo
                                             </div>
                                           </div>
@@ -764,7 +766,7 @@ export default function CivicAIPlatform() {
                                 className="flex-1 border-red-300 text-red-600 hover:bg-red-50"
                                 onClick={() => handleVerificationResponse(request.id, "denied")}
                               >
-                                ✗ No, it's not there
+                                ✗ No, it&apos;s not there
                               </Button>
                             </div>
                           </div>

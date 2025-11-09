@@ -31,4 +31,5 @@ export async function query(text: string, params?: any[]) {
   }
 }
 
-export default { query, getPool };
+const dbConnection = { query, getPool };
+export default dbConnection;

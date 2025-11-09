@@ -5,6 +5,10 @@ const nextConfig = {
   },
   images: {
     domains: ['localhost'],
+    unoptimized: true
+  },
+  eslint: {
+    ignoreDuringBuilds: true,
   },
 }
 

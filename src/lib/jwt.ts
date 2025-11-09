@@ -1,30 +1,32 @@
-// JWT utility for Vercel API routes
-import jwt from 'jsonwebtoken';
+import jwt from "jsonwebtoken";
+import type { Secret, SignOptions } from "jsonwebtoken";
 
-const JWT_SECRET: string = process.env.JWT_SECRET || 'your-fallback-secret-key';
-const JWT_EXPIRE: string = process.env.JWT_EXPIRE || '7d';
+const JWT_SECRET = process.env.JWT_SECRET as string;
+const JWT_EXPIRE = (process.env.JWT_EXPIRE as string) || "1d";
 
 export interface JWTPayload {
-  userId: string;
+  id: string;
   email: string;
   name: string;
-  iat?: number;
-  exp?: number;
+  area: string;
+  iat: number;
+  exp: number;
 }
 
-export function generateToken(payload: Omit<JWTPayload, 'iat' | 'exp'>): string {
-  return jwt.sign(payload as any, JWT_SECRET, { expiresIn: JWT_EXPIRE });
+export function generateToken(
+  payload: Omit<JWTPayload, "iat" | "exp">
+): string {
+  return jwt.sign(
+    payload,
+    JWT_SECRET as Secret,
+    { expiresIn: JWT_EXPIRE } as SignOptions
+  );
 }
 
 export function verifyToken(token: string): JWTPayload | null {
   try {
     return jwt.verify(token, JWT_SECRET) as JWTPayload;
-  } catch (error) {
+  } catch {
     return null;
   }
-}
-
-export function generateVerificationToken(): string {
-  return Math.random().toString(36).substring(2, 15) + 
-         Math.random().toString(36).substring(2, 15);
 }

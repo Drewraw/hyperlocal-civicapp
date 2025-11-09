@@ -65,7 +65,9 @@ export default function AuthPage({ onAuthSuccess }: AuthPageProps) {
     }
   }, []);
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+  ) => {
     const { name, value } = e.target;
     setFormData(prev => ({
       ...prev,
@@ -90,12 +92,12 @@ export default function AuthPage({ onAuthSuccess }: AuthPageProps) {
     }
   };
 
-  const selectEmailSuggestion = (email) => {
+  const selectEmailSuggestion = (email: string) => {
     setFormData(prev => ({ ...prev, email }));
     setShowEmailSuggestions(false);
   };
 
-  const saveEmail = (email) => {
+  const saveEmail = (email: string) => {
     const savedEmails = JSON.parse(localStorage.getItem('savedEmails') || '[]');
     if (!savedEmails.includes(email)) {
       const updatedEmails = [...savedEmails, email].slice(-5); // Keep only last 5 emails
@@ -149,7 +151,7 @@ export default function AuthPage({ onAuthSuccess }: AuthPageProps) {
     }
   };
 
-  const detectAreaFromCoords = async (lat, lng) => {
+  const detectAreaFromCoords = async (lat: number, lng: number) => {
     // Mock area detection - in a real app, you'd use a geocoding service like Google Maps API
     // This is a simplified example for Bangalore areas
     const bangaloreAreas = [
@@ -178,7 +180,7 @@ export default function AuthPage({ onAuthSuccess }: AuthPageProps) {
     return closestArea;
   };
 
-  const handleRegister = async (e) => {
+  const handleRegister = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
     setMessage({ type: "", text: "" });
@@ -214,7 +216,7 @@ export default function AuthPage({ onAuthSuccess }: AuthPageProps) {
     }
   };
 
-  const handleLogin = async (e) => {
+  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
     setMessage({ type: "", text: "" });
@@ -253,7 +255,7 @@ export default function AuthPage({ onAuthSuccess }: AuthPageProps) {
     }
   };
 
-  const handleVerifyEmail = async (e) => {
+  const handleVerifyEmail = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
     setMessage({ type: "", text: "" });

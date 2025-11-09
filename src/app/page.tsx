@@ -151,54 +151,30 @@ export default function CivicAIPlatform() {
       const token = localStorage.getItem('token');
       if (!token) return;
 
-      // Load user's area data and sample data
-      const sampleIssues: Issue[] = [
-        {
-          id: "i1",
-          category: "potholes",
-          area: "Indiranagar, Bangalore",
-          text: "Large pothole near the market road junction causing traffic issues",
-          userId: "user2",
-          userName: "Priya K",
-          timestamp: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString(),
-          status: "pending",
-          upvotes: ["user2", "user3", "user4"],
-          comments: [
-            { userId: "ai", userName: "AI", text: "I've notified 4 nearby users to verify this issue.", timestamp: new Date().toISOString() }
-          ],
-          verifications: {
-            positive: 3,
-            negative: 0,
-            details: [
-              { userId: "user3", response: "confirmed", media: [] },
-              { userId: "user4", response: "confirmed", media: [] }
-            ]
-          },
-          aiFollowUpScheduled: true
-        }
-      ];
-      setIssues(sampleIssues);
+      // Load user's area data and issues from API
+      const issuesRes = await fetch('/api/issues', {
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+      if (issuesRes.ok) {
+        const issuesData = await issuesRes.json();
+        setIssues(issuesData);
+      }
 
-      const sampleRequests: VerificationRequest[] = [
-        {
-          id: "vr1",
-          issueId: "i1",
-          message: "Priya K reported a pothole on Market Road. Can you verify?",
-          timestamp: new Date(Date.now() - 2 * 60 * 60 * 1000).toISOString(),
-          responded: false
-        }
-      ];
-      setVerificationRequests(sampleRequests);
+      const requestsRes = await fetch('/api/verifications', {
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+      if (requestsRes.ok) {
+        const requestsData = await requestsRes.json();
+        setVerificationRequests(requestsData);
+      }
 
-      setNotifications([
-        {
-          id: "n1",
-          type: "followup",
-          message: "You reported a pothole 2 days ago. Has it been fixed yet?",
-          issueId: "i1",
-          timestamp: "2 hours ago"
-        }
-      ]);
+      const notificationsRes = await fetch('/api/notifications', {
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+      if (notificationsRes.ok) {
+        const notificationsData = await notificationsRes.json();
+        setNotifications(notificationsData);
+      }
 
     } catch (error) {
       console.error("Error loading data:", error);
